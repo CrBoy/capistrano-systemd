@@ -1,18 +1,25 @@
 namespace :load do
 	task :defaults do
 		set :systemd_unit, ->{ fetch :application }
-		set :systemd_use_sudo, true
-		set :systemd_roles, [:app]
+		set :systemd_use_sudo, false
+		set :systemd_roles, %w(app)
 	end
 end
 
 namespace :systemd do
-	%w[start stop restart status enable disable].each do |command|
-		desc "#{command.capitalize} systemd service"
+	%w(start stop restart enable disable).each do |command|
+		desc "#{command.capitalize} service"
 		task command do
 			on roles fetch :systemd_roles do
 				exec :systemctl, command, fetch(:systemd_unit)
 			end
+		end
+	end
+
+	desc "Show the status of service"
+	task :status do
+		on roles fetch :systemd_roles do
+			exec :systemctl, :status, fetch(:systemd_unit)
 		end
 	end
 
