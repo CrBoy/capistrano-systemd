@@ -1,7 +1,1 @@
-require "capistrano/systemd/version"
-
-module Capistrano
-  module Systemd
-    # Your code goes here...
-  end
-end
+load File.expand_path('../tasks/systemd.rake', __FILE__)
