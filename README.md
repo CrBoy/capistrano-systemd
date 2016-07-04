@@ -20,7 +20,25 @@ Or install it yourself as:
 
 ## Usage
 
-(WIP)
+This gem lets you perform `systemctl` command on the target machine. Be sure that you have permission to do that. Set `:systemd_use_sudo` to `true` if you have to run `systemctl` with `sudo`.
+
+Add the following example to your `config/deploy.rb`:
+
+```
+set :systemd_unit, -> { "#{fetch :application}.target" }
+set :systemd_use_sudo, true
+set :systemd_roles, %w(app)
+```
+
+and do `cap production systemd:status` will show the status of your application.
+
+Run `cap -T systemd` to see the details of commands.
+
+## Troubleshooting
+
+`sudo: no tty present and no askpass program specified`
+
+Make your deploy role runs `sudo systemctl` without asking password.
 
 ## Development
 
