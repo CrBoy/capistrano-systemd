@@ -11,7 +11,7 @@ namespace :systemd do
 		desc "#{command.capitalize} service"
 		task command do
 			on roles fetch :systemd_roles do
-				exec :systemctl, command, fetch(:systemd_unit)
+				systemctl :"#{command}", fetch(:systemd_unit)
 			end
 		end
 	end
@@ -19,19 +19,19 @@ namespace :systemd do
 	desc "Show the status of service"
 	task :status do
 		on roles fetch :systemd_roles do
-			exec :systemctl, :status, fetch(:systemd_unit)
+			systemctl :status, fetch(:systemd_unit)
 		end
 	end
 
 	desc "Reload systemd manager configuration"
 	task "daemon-reload" do
 		on roles fetch :systemd_roles do
-			exec :systemctl, "daemon-reload"
+			systemctl :"daemon-reload"
 		end
 	end
 
-	def exec *args
-		fetch(:systemd_use_sudo) ? sudo(*args) : execute(*args)
+	def systemctl(*args)
+		fetch(:systemd_use_sudo) ? sudo(:systemctl, *args) : execute(:systemctl, *args)
 	end
 end
 
