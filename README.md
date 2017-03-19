@@ -1,6 +1,6 @@
 # Capistrano::Systemd
 
-This gem add tasks into capistrano for systemd commands (start, stop, restart, status, enable, disable, etc.) on the target machine. It performs `systemctrl restart` after deploy as well.
+This gem add tasks into capistrano for systemd commands (start, stop, restart, status, enable, disable, etc.) on the target machine. It performs `systemctl restart` after deploy as well.
 
 ## Installation
 
