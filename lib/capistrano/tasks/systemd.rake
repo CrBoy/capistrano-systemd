@@ -34,6 +34,3 @@ namespace :systemd do
 		fetch(:systemd_use_sudo) ? sudo(:systemctl, *args) : execute(:systemctl, *args)
 	end
 end
-
-after "deploy:published", "systemd:daemon-reload"
-after "deploy:finished", "systemd:restart"
