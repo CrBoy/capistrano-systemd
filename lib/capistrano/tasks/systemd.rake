@@ -7,7 +7,7 @@ namespace :load do
 end
 
 namespace :systemd do
-	%w(start stop restart enable disable).each do |command|
+	%w(start stop restart reload enable disable).each do |command|
 		desc "#{command.capitalize} service"
 		task command do
 			on roles fetch :systemd_roles do
