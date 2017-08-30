@@ -30,6 +30,12 @@ set :systemd_use_sudo, true
 set :systemd_roles, %w(app)
 ```
 
+and the following to your `Capfile`:
+
+```
+require "capistrano/systemd"
+```
+
 and do `cap production systemd:status` will show the status of your application.
 
 Run `cap -T systemd` to see the details of commands.
