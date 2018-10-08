@@ -25,9 +25,15 @@ This gem lets you perform `systemctl` command on the target machine. Be sure tha
 Add the following example to your `config/deploy.rb`:
 
 ```
-set :systemd_unit, -> { "#{fetch :application}.target" }
 set :systemd_use_sudo, true
 set :systemd_roles, %w(app)
+```
+
+Add the following to your role or server config
+```
+role :app, ['server1.example.com'], systemd_units: ['unit1', 'unit2']
+OR
+server "server1.example.com", roles: [:app], systemd_units: ['unit1', 'unit2']
 ```
 
 and do `cap production systemd:status` will show the status of your application.
