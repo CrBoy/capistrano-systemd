@@ -40,6 +40,11 @@ and do `cap production systemd:status` will show the status of your application.
 
 Run `cap -T systemd` to see the details of commands.
 
+If you don't want to default deploy hooks enabled, please use:
+```
+set :systemd_enable_deploy_hooks, false
+```
+
 ## Troubleshooting
 
 `sudo: no tty present and no askpass program specified`

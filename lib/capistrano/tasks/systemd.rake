@@ -1,5 +1,6 @@
 namespace :load do
 	task :defaults do
+		set :systemd_enable_deploy_hooks, true
 		set :systemd_use_sudo, false
 		set :systemd_roles, %w(app)
 	end
@@ -36,4 +37,9 @@ namespace :systemd do
 	def systemctl(*args)
 		fetch(:systemd_use_sudo) ? sudo(:systemctl, *args) : execute(:systemctl, *args)
 	end
+end
+
+if fetch :systemd_enable_deploy_hooks
+	after "deploy:published", "systemd:daemon-reload"
+	after "deploy:finished", "systemd:restart"
 end
